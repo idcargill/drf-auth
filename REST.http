@@ -1,0 +1,32 @@
+GET http://localhost:8000
+
+###
+POST http://localhost:8000/api/token/
+Content-Type: "application/x-www-form-urlencoded"
+
+{
+  "username": "ianc",
+  "password": "T1gerface"
+}
+
+
+
+###
+GET http://localhost:8000
+Content-Type: "application/json"
+Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MDA4MTEzLCJpYXQiOjE2NDgwMDc4MTMsImp0aSI6IjdlZTdiMWZmNDA0NjQwYmE4Yzg0YTFiNzQxZjNjYzdiIiwidXNlcl9pZCI6MX0.rNVjUQbFUQnKe-kvHYzt9j4QmYVhH6mnm1Y2fSc-IL0"
+
+
+
+
+
+
+
+
+
+
+
+{
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY0ODE1OTExNiwiaWF0IjoxNjQ4MDcyNzE2LCJqdGkiOiIxMmUxZjBhZWJjMTY0NWI0ODEyYzA0MTA5YWQ3NTNkNyIsInVzZXJfaWQiOjF9.WlDUe7X5UuTSrrT3cDhP8vdB6CtVqbCMaRpx3PwRB8M",
+    "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MDczMDE2LCJpYXQiOjE2NDgwNzI3MTYsImp0aSI6IjJlYjVmMTlhMGU3NTQwNDFhNjkxMjgwMjc0ZjUzNDMwIiwidXNlcl9pZCI6MX0.ZPg5wqFOcMoXI_JdWjHIDRpUrsMzzeorMxJJyixs-6o"
+}
