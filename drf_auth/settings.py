@@ -1,20 +1,22 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%dr4e9(b+h(%h3^ftjv11ni6j+i9sc2(34k&tqo2h28d7=pg)b'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
-
+# ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
+ALLOWED_HOSTS=os.getenv('ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
@@ -27,9 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # apps
-    'duck',
     'rest_framework',
+    'rest_framework.authtoken',
     'accounts',
+    'duck',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +52,7 @@ ROOT_URLCONF = 'drf_auth.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -62,31 +65,31 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'drf_auth.wsgi.application'
+WSGI_APPLICATION = 'duck_blog_config.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # SQLITE
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# POSTGRES
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'db',
-#         'PORT': 5432,
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+# POSTGRES
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
+}
 
 
 # Password validation
@@ -133,14 +136,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES' : ( 
+    'DEFAULT_PERMISSION_CLASSES' : [ 
         'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.BasicAuthentication',
-    ),
+        'rest_framework.authentication.BasicAuthentication',
+    ],
 }
 
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "home"
